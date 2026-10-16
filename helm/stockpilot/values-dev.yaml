@@ -1,0 +1,16 @@
+# Local / classroom cluster (kind, minikube, Docker Desktop)
+backend:
+  replicaCount: 2
+  seedDemoData: true
+frontend:
+  replicaCount: 2
+ingress:
+  enabled: true
+  host: stockpilot.local     # add "127.0.0.1 stockpilot.local" to /etc/hosts
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+monitoring:
+  serviceMonitor:
+    enabled: true

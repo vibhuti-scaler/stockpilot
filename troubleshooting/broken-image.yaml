@@ -1,0 +1,25 @@
+# Scenario 1: ImagePullBackOff
+# The image tag does not exist. Kubernetes keeps retrying the pull with back-off.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stockpilot-broken-image
+  namespace: stockpilot
+  labels:
+    app: broken-image
+    lab: troubleshooting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broken-image
+  template:
+    metadata:
+      labels:
+        app: broken-image
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/vibhuti-scaler/stockpilot-backend:this-tag-does-not-exist
+          ports:
+            - containerPort: 8000

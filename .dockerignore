@@ -1,0 +1,10 @@
+.git
+.github
+docs
+helm
+k8s
+monitoring
+terraform
+troubleshooting
+scripts
+README.md

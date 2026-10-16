@@ -1,0 +1,40 @@
+# Alerting rules evaluated by the Prometheus Operator (picked up because ruleSelectorNilUsesHelmValues=false)
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: stockpilot-rules
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: stockpilot.rules
+      rules:
+        - alert: StockPilotBackendDown
+          expr: absent(up{job=~".*stockpilot-backend.*"} == 1)
+          for: 2m
+          labels: {severity: critical}
+          annotations:
+            summary: "StockPilot backend is not being scraped"
+            description: "No healthy StockPilot backend target has reported for 2 minutes."
+        - alert: StockPilotHighErrorRate
+          expr: |
+            sum(rate(http_requests_total{job=~".*stockpilot-backend.*", status=~"5.."}[5m]))
+              / sum(rate(http_requests_total{job=~".*stockpilot-backend.*"}[5m])) > 0.05
+          for: 5m
+          labels: {severity: warning}
+          annotations:
+            summary: "More than 5% of StockPilot requests are failing"
+        - alert: StockPilotSlowRequests
+          expr: |
+            histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=~".*stockpilot-backend.*"}[5m])) by (le)) > 0.5
+          for: 5m
+          labels: {severity: warning}
+          annotations:
+            summary: "StockPilot p95 latency above 500 ms"
+        - alert: StockPilotProductsNeedReorder
+          expr: max(stockpilot_low_stock_products) > 5
+          for: 15m
+          labels: {severity: info}
+          annotations:
+            summary: "More than 5 products are at or below their reorder level"

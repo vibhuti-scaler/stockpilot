@@ -1,0 +1,58 @@
+# Values for prometheus-community/kube-prometheus-stack
+# helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+#   -n monitoring --create-namespace -f monitoring/kube-prometheus-stack-values.yaml
+
+fullnameOverride: kube-prometheus-stack
+
+prometheus:
+  prometheusSpec:
+    # Discover ServiceMonitors from every namespace, not only those carrying the Helm release label
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    retention: 2d
+    scrapeInterval: 15s
+    resources:
+      requests: {cpu: 100m, memory: 512Mi}
+      limits: {cpu: 1000m, memory: 1Gi}
+
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: stockpilot       # demo only - set via --set grafana.adminPassword=... for real clusters
+  defaultDashboardsEnabled: true
+  sidecar:
+    dashboards:
+      enabled: true               # loads ConfigMaps labelled grafana_dashboard=1 (see grafana-dashboard-configmap.yaml)
+      searchNamespace: ALL
+      folderAnnotation: grafana_folder
+  grafana.ini:
+    analytics: {check_for_updates: false}
+    server: {root_url: "%(protocol)s://%(domain)s/"}
+  resources:
+    requests: {cpu: 200m, memory: 256Mi}
+    limits: {cpu: 2000m, memory: 1Gi}
+  livenessProbe:
+    httpGet: {path: /api/health, port: 3000}
+    initialDelaySeconds: 90
+    periodSeconds: 15
+    failureThreshold: 10
+  readinessProbe:
+    httpGet: {path: /api/health, port: 3000}
+    initialDelaySeconds: 20
+    periodSeconds: 10
+
+alertmanager:
+  enabled: true
+
+# Trim components that do not exist / are not reachable on kind or EKS managed control planes
+kubeControllerManager: {enabled: false}
+kubeScheduler: {enabled: false}
+kubeProxy: {enabled: false}
+kubeEtcd: {enabled: false}
+
+nodeExporter:
+  enabled: true
+kubeStateMetrics:
+  enabled: true

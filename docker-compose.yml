@@ -1,0 +1,49 @@
+# StockPilot local stack: PostgreSQL + FastAPI backend + React/Nginx frontend
+# Run:  docker compose up --build        Stop: docker compose down (-v to drop the DB volume)
+name: stockpilot
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: stockpilot-postgres
+    environment:
+      POSTGRES_DB: stockpilot
+      POSTGRES_USER: stockpilot
+      POSTGRES_PASSWORD: stockpilot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stockpilot -d stockpilot"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    image: stockpilot-backend:local
+    container_name: stockpilot-backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://stockpilot:stockpilot@postgres:5432/stockpilot
+      SEED_DEMO_DATA: "true"
+      LOG_LEVEL: info
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    image: stockpilot-frontend:local
+    container_name: stockpilot-frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+    depends_on:
+      - backend
+    ports:
+      - "3000:8080"
+
+volumes:
+  postgres-data:

@@ -1,0 +1,24 @@
+# kind lab used for the capstone validation screenshots.
+# Images are built locally and loaded with `kind load docker-image`.
+image:
+  pullPolicy: IfNotPresent
+backend:
+  image: stockpilot-backend
+  tag: local
+  replicaCount: 2
+  seedDemoData: true
+frontend:
+  image: stockpilot-frontend
+  tag: local
+  replicaCount: 2
+ingress:
+  enabled: true
+  host: stockpilot.127.0.0.1.nip.io   # wildcard DNS -> 127.0.0.1, no /etc/hosts entry needed
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 50
+monitoring:
+  serviceMonitor:
+    enabled: true

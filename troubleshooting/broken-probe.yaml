@@ -1,0 +1,37 @@
+# Scenario 3: CrashLoopBackOff / failing probes
+# The container cannot reach a database (wrong host) so `alembic upgrade head` keeps
+# failing and the entrypoint exits. The Pod restarts with exponential back-off.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stockpilot-broken-db
+  namespace: stockpilot
+  labels:
+    app: broken-db
+    lab: troubleshooting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broken-db
+  template:
+    metadata:
+      labels:
+        app: broken-db
+    spec:
+      containers:
+        - name: backend
+          image: stockpilot-backend:local
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATABASE_URL
+              value: postgresql+psycopg://stockpilot:stockpilot@no-such-database:5432/stockpilot
+            - name: DB_WAIT_ATTEMPTS
+              value: "3"
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            periodSeconds: 5

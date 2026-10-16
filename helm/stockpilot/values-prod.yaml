@@ -1,0 +1,24 @@
+# AWS EKS (provisioned by terraform/). Images come from GHCR tagged with the Git SHA.
+backend:
+  replicaCount: 2
+  resources:
+    requests: {cpu: 200m, memory: 256Mi}
+    limits: {cpu: 1000m, memory: 512Mi}
+frontend:
+  replicaCount: 2
+postgres:
+  storage: 10Gi
+  storageClassName: gp2
+ingress:
+  enabled: true
+  host: stockpilot.example.com
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 60
+monitoring:
+  serviceMonitor:
+    enabled: true

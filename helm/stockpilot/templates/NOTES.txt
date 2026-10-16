@@ -1,0 +1,19 @@
+StockPilot {{ .Chart.AppVersion }} has been deployed as release "{{ .Release.Name }}" in namespace "{{ .Release.Namespace }}".
+
+Components
+  backend   : {{ include "stockpilot.backend.fullname" . }}  (image {{ .Values.backend.image }}:{{ .Values.backend.tag }})
+  frontend  : {{ include "stockpilot.frontend.fullname" . }} (image {{ .Values.frontend.image }}:{{ .Values.frontend.tag }})
+  postgres  : {{ if .Values.postgres.enabled }}{{ include "stockpilot.postgres.fullname" . }} (in-cluster StatefulSet){{ else }}external host {{ .Values.postgres.host }}{{ end }}
+  ingress   : {{ if .Values.ingress.enabled }}http://{{ .Values.ingress.host }}/{{ else }}disabled{{ end }}
+  hpa       : {{ if .Values.hpa.enabled }}{{ .Values.hpa.minReplicas }}-{{ .Values.hpa.maxReplicas }} backend replicas at {{ .Values.hpa.targetCPUUtilizationPercentage }}% CPU{{ else }}disabled{{ end }}
+
+Check status
+  kubectl get pods,svc,ingress,hpa -n {{ .Release.Namespace }}
+  helm test {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+{{- if not .Values.ingress.enabled }}
+
+Port-forward (ingress disabled)
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "stockpilot.frontend.fullname" . }} 3000:80
+  open http://localhost:3000
+{{- end }}

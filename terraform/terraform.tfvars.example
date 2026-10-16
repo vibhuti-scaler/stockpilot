@@ -1,0 +1,24 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is git-ignored.
+# NEVER put AWS access keys here - use `aws configure`, environment variables or an SSO profile.
+
+aws_region  = "ap-south-1"
+project     = "stockpilot"
+environment = "dev"
+owner       = "Vibhuti Bhatnagar (24bcs10288)"
+
+cluster_name    = "stockpilot-eks"
+cluster_version = "1.31"
+
+vpc_cidr             = "10.20.0.0/16"
+availability_zones   = ["ap-south-1a", "ap-south-1b"]
+public_subnet_cidrs  = ["10.20.101.0/24", "10.20.102.0/24"]
+private_subnet_cidrs = ["10.20.1.0/24", "10.20.2.0/24"]
+single_nat_gateway   = true
+
+node_instance_types = ["t3.medium"]
+node_min_size       = 2
+node_max_size       = 4
+node_desired_size   = 2
+
+# Restrict to your own IP in real deployments, e.g. ["203.0.113.10/32"]
+cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]

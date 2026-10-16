@@ -1,0 +1,22 @@
+# Run with: helm test <release> -n <namespace>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "stockpilot.fullname" . }}-test-connection"
+  labels:
+    {{- include "stockpilot.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  restartPolicy: Never
+  containers:
+    - name: curl
+      image: curlimages/curl:8.12.1
+      command: ["sh", "-c"]
+      args:
+        - |
+          set -e
+          curl -fsS http://{{ include "stockpilot.backend.fullname" . }}:{{ .Values.backend.port }}/health
+          curl -fsS http://{{ include "stockpilot.backend.fullname" . }}:{{ .Values.backend.port }}/ready
+          curl -fsS http://{{ include "stockpilot.frontend.fullname" . }}/nginx-health
+          curl -fsS http://{{ include "stockpilot.frontend.fullname" . }}/api/products/stats
