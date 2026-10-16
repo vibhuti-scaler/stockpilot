@@ -18,7 +18,9 @@ Developer ──> Git/GitHub ──> GitHub Actions ──> GHCR ──> Terrafo
                               └  push :<git-sha>                                                 └ Troubleshooting lab
 ```
 
-![StockPilot dashboard](docs/screenshots/01-dashboard.png)
+[![StockPilot walkthrough preview](docs/StockPilot-walkthrough-preview.gif)](docs/StockPilot-walkthrough.mp4)
+
+*Preview of the walkthrough video. Click it, or open [docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) and use **Download** / **View raw**, for the full 4-minute captioned recording.*
 
 ---
 
@@ -473,6 +475,9 @@ A recorded walkthrough of the running system (dashboard, creating a product and 
 Compose, Trivy, CI workflow, Terraform, Helm, the kind cluster through its Ingress, HPA scaling, Prometheus targets,
 the Grafana dashboard and the three troubleshooting scenarios) is in
 [docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) (4 min 10 s, 1440×900, captions on screen).
+An animated preview is shown at the top of this README:
+
+[![StockPilot walkthrough preview](docs/StockPilot-walkthrough-preview.gif)](docs/StockPilot-walkthrough.mp4)
 
 Demo order used in the live presentation: application → API (Swagger) → database → Git commit → CI pipeline →
 Docker images → Trivy scan → GHCR → Terraform → Kubernetes → Helm → Ingress → HPA → Prometheus/Grafana →
@@ -503,5 +508,5 @@ failure simulation (troubleshooting lab).
 ├── monitoring/                  kube-prometheus-stack values, Grafana dashboard, alert rules
 ├── troubleshooting/             broken manifests + walkthrough
 ├── scripts/                     kind-up.sh, kind-down.sh, kind-config.yaml, load-test.sh, seed.sh
-└── docs/                        screenshots/ (evidence) and StockPilot-walkthrough.mp4
+└── docs/                        screenshots/, StockPilot-walkthrough.mp4, StockPilot-walkthrough-preview.gif
 ```
