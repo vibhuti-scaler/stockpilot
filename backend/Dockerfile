@@ -1,5 +1,5 @@
 # ---- Stage 1: build a virtualenv with the pinned dependencies ----
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 WORKDIR /build
 COPY requirements.txt .
@@ -10,7 +10,7 @@ RUN python -m venv /opt/venv \
     && /opt/venv/bin/pip uninstall -y pip setuptools wheel
 
 # ---- Stage 2: minimal runtime image ----
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 LABEL org.opencontainers.image.title="stockpilot-backend" \
       org.opencontainers.image.description="StockPilot inventory management API (FastAPI + PostgreSQL)" \
