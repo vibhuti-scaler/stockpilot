@@ -2,6 +2,7 @@
 
 **DevOps Final Capstone Project (Session 21)**
 **Student:** Vibhuti Bhatnagar · **Roll No:** 24bcs10288 · **GitHub:** [vibhuti-scaler](https://github.com/vibhuti-scaler)
+**Presentation:** [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)
 
 StockPilot is a small but realistic inventory-management SaaS: a warehouse team tracks products (SKUs),
 their suppliers, reorder levels and an append-only ledger of stock movements (goods received / issued).
@@ -34,7 +35,7 @@ Developer ──> Git/GitHub ──> GitHub Actions ──> GHCR ──> Terrafo
 9. [Kubernetes + Helm (M8)](#9-kubernetes--helm-m8)
 10. [Observability — Prometheus + Grafana (M9)](#10-observability--prometheus--grafana-m9)
 11. [Troubleshooting lab](#11-troubleshooting-lab)
-12. [Demo script and documentation (M10)](#12-demo-script-and-documentation-m10)
+12. [Presentation and documentation (M10)](#12-presentation-and-documentation-m10)
 13. [Repository structure](#13-repository-structure)
 
 ---
@@ -280,8 +281,7 @@ Secrets/variables used: `GITHUB_TOKEN` (automatic, for GHCR), `KUBE_CONFIG_DATA`
 `INGRESS_HOST` (repository variable, optional).
 
 > After pushing to GitHub, the Actions run URL and the GHCR package pages
-> (`https://github.com/vibhuti-scaler?tab=packages`) are the evidence for this module — see
-> [docs/SUBMISSION.md](docs/SUBMISSION.md).
+> (`https://github.com/vibhuti-scaler?tab=packages`) are the evidence for this module.
 
 ---
 
@@ -343,7 +343,7 @@ The plan produced by the mocked provider (identical resource graph to a real `te
 
 > The AWS Console screenshots (VPC + EKS) and the `terraform destroy` completion output are produced
 > when the stack is applied with real credentials; the exact commands are in
-> [terraform/README.md](terraform/README.md) and the checklist in [docs/SUBMISSION.md](docs/SUBMISSION.md).
+> [terraform/README.md](terraform/README.md).
 
 ---
 
@@ -463,12 +463,15 @@ kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3001:80    
 
 ---
 
-## 12. Demo script and documentation (M10)
+## 12. Presentation and documentation (M10)
 
-The step-by-step presentation flow (application → API → database → Git → CI → Docker → Trivy → GHCR →
-Terraform → Kubernetes → Helm → Ingress → HPA → monitoring → failure simulation) is in
-[docs/DEMO.md](docs/DEMO.md). The rubric-to-evidence mapping and the list of items that require a
-pushed repository / applied AWS stack is in [docs/SUBMISSION.md](docs/SUBMISSION.md).
+The slide deck for the presentation is on [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)
+(application, API, testing, Docker, CI/CD, Trivy, Terraform, Kubernetes/Helm, Ingress/HPA, observability,
+troubleshooting, demo flow).
+
+Demo order used in the live presentation: application → API (Swagger) → database → Git commit → CI pipeline →
+Docker images → Trivy scan → GHCR → Terraform → Kubernetes → Helm → Ingress → HPA → Prometheus/Grafana →
+failure simulation (troubleshooting lab).
 
 ---
 
@@ -495,5 +498,5 @@ pushed repository / applied AWS stack is in [docs/SUBMISSION.md](docs/SUBMISSION
 ├── monitoring/                  kube-prometheus-stack values, Grafana dashboard, alert rules
 ├── troubleshooting/             broken manifests + walkthrough
 ├── scripts/                     kind-up.sh, kind-down.sh, kind-config.yaml, load-test.sh, seed.sh
-└── docs/                        DEMO.md, SUBMISSION.md, screenshots/
+└── docs/screenshots/            evidence screenshots referenced above
 ```
