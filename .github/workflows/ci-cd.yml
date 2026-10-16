@@ -213,7 +213,7 @@ jobs:
 
       - name: Install Helm
         if: steps.creds.outputs.configured == 'true'
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@v5
 
       - name: Configure kubectl
         if: steps.creds.outputs.configured == 'true'
