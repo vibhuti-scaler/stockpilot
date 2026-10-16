@@ -55,7 +55,7 @@ module "eks" {
 # IAM role for the EBS CSI driver (needed for PostgreSQL PersistentVolumeClaims on gp2/gp3)
 module "ebs_csi_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.58.0"
+  version = "6.8.2"
 
   role_name             = "${var.cluster_name}-ebs-csi"
   attach_ebs_csi_policy = true
