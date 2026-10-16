@@ -132,7 +132,7 @@ jobs:
 
       # ---- DevSecOps gate: fail the pipeline on HIGH/CRITICAL vulnerabilities ----
       - name: Trivy scan - backend image
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
           format: table
@@ -141,7 +141,7 @@ jobs:
           exit-code: "1"
 
       - name: Trivy scan - frontend image
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
           format: table
@@ -150,7 +150,7 @@ jobs:
           exit-code: "1"
 
       - name: Trivy SARIF report (GitHub Security tab)
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         if: always()
         with:
           image-ref: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
