@@ -2,7 +2,7 @@
 
 **DevOps Final Capstone Project (Session 21)**
 **Student:** Vibhuti Bhatnagar · **Roll No:** 24bcs10288 · **GitHub:** [vibhuti-scaler](https://github.com/vibhuti-scaler)
-**Presentation:** [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)
+**Presentation:** [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing) · **Walkthrough video:** [docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) (4 min, captioned)
 
 StockPilot is a small but realistic inventory-management SaaS: a warehouse team tracks products (SKUs),
 their suppliers, reorder levels and an append-only ledger of stock movements (goods received / issued).
@@ -469,6 +469,11 @@ The slide deck for the presentation is on [Google Slides](https://docs.google.co
 (application, API, testing, Docker, CI/CD, Trivy, Terraform, Kubernetes/Helm, Ingress/HPA, observability,
 troubleshooting, demo flow).
 
+A recorded walkthrough of the running system (dashboard, creating a product and issuing stock, Swagger, tests,
+Compose, Trivy, CI workflow, Terraform, Helm, the kind cluster through its Ingress, HPA scaling, Prometheus targets,
+the Grafana dashboard and the three troubleshooting scenarios) is in
+[docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) (4 min 10 s, 1440×900, captions on screen).
+
 Demo order used in the live presentation: application → API (Swagger) → database → Git commit → CI pipeline →
 Docker images → Trivy scan → GHCR → Terraform → Kubernetes → Helm → Ingress → HPA → Prometheus/Grafana →
 failure simulation (troubleshooting lab).
@@ -498,5 +503,5 @@ failure simulation (troubleshooting lab).
 ├── monitoring/                  kube-prometheus-stack values, Grafana dashboard, alert rules
 ├── troubleshooting/             broken manifests + walkthrough
 ├── scripts/                     kind-up.sh, kind-down.sh, kind-config.yaml, load-test.sh, seed.sh
-└── docs/screenshots/            evidence screenshots referenced above
+└── docs/                        screenshots/ (evidence) and StockPilot-walkthrough.mp4
 ```
