@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # ---- Stage 2: serve the static bundle with an unprivileged Nginx ----
-FROM nginxinc/nginx-unprivileged:1.30-alpine
+FROM nginxinc/nginx-unprivileged:1.31-alpine
 
 LABEL org.opencontainers.image.title="stockpilot-frontend" \
       org.opencontainers.image.description="StockPilot inventory dashboard (React + Nginx)" \
