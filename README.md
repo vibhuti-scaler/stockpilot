@@ -2,7 +2,7 @@
 
 **DevOps Final Capstone Project (Session 21)**
 **Student:** Vibhuti Bhatnagar · **Roll No:** 24bcs10288 · **GitHub:** [vibhuti-scaler](https://github.com/vibhuti-scaler)
-**Presentation:** [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing) · **Walkthrough video:** [docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) (4 min, captioned)
+**Demo folder:** [demo/](demo/) — [presentation video (MP4)](demo/StockPilot-presentation-video.mp4) · [slide deck (PPTX)](demo/StockPilot-presentation.pptx) · [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)
 
 StockPilot is a small but realistic inventory-management SaaS: a warehouse team tracks products (SKUs),
 their suppliers, reorder levels and an append-only ledger of stock movements (goods received / issued).
@@ -18,9 +18,9 @@ Developer ──> Git/GitHub ──> GitHub Actions ──> GHCR ──> Terrafo
                               └  push :<git-sha>                                                 └ Troubleshooting lab
 ```
 
-[![StockPilot walkthrough preview](docs/StockPilot-walkthrough-preview.gif)](docs/StockPilot-walkthrough.mp4)
+[![StockPilot walkthrough preview](demo/StockPilot-presentation-preview.gif)](demo/StockPilot-presentation-video.mp4)
 
-*Preview of the walkthrough video. Click it, or open [docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) and use **Download** / **View raw**, for the full 4-minute captioned recording.*
+*Preview of the walkthrough video. Click it, or open [demo/StockPilot-presentation-video.mp4](demo/StockPilot-presentation-video.mp4) and use **Download** / **View raw**, for the full 4-minute captioned recording.*
 
 ---
 
@@ -467,17 +467,21 @@ kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3001:80    
 
 ## 12. Presentation and documentation (M10)
 
-The slide deck for the presentation is on [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)
-(application, API, testing, Docker, CI/CD, Trivy, Terraform, Kubernetes/Helm, Ingress/HPA, observability,
-troubleshooting, demo flow).
+The `demo/` folder holds the mandatory submission artefacts:
+
+| File | Content |
+|------|---------|
+| [demo/StockPilot-presentation-video.mp4](demo/StockPilot-presentation-video.mp4) | Presentation / walkthrough video (4 min 10 s, 1440×900, on-screen captions) |
+| [demo/StockPilot-presentation.pptx](demo/StockPilot-presentation.pptx) | Slide deck, 15 slides with speaker notes (also on [Google Slides](https://docs.google.com/presentation/d/1d1aqMQi88myVD5jn6G1iarj0KrjtRVwX9FPBXg37U6k/edit?usp=sharing)) |
+| [demo/StockPilot-presentation-preview.gif](demo/StockPilot-presentation-preview.gif) | Animated preview of the video embedded at the top of this README |
+
+The deck covers the application, API, testing, Docker, CI/CD, Trivy, Terraform, Kubernetes/Helm, Ingress/HPA,
+observability, troubleshooting and the demo flow.
 
 A recorded walkthrough of the running system (dashboard, creating a product and issuing stock, Swagger, tests,
 Compose, Trivy, CI workflow, Terraform, Helm, the kind cluster through its Ingress, HPA scaling, Prometheus targets,
 the Grafana dashboard and the three troubleshooting scenarios) is in
-[docs/StockPilot-walkthrough.mp4](docs/StockPilot-walkthrough.mp4) (4 min 10 s, 1440×900, captions on screen).
-An animated preview is shown at the top of this README:
-
-[![StockPilot walkthrough preview](docs/StockPilot-walkthrough-preview.gif)](docs/StockPilot-walkthrough.mp4)
+[demo/StockPilot-presentation-video.mp4](demo/StockPilot-presentation-video.mp4) (4 min 10 s, 1440×900, captions on screen).
 
 Demo order used in the live presentation: application → API (Swagger) → database → Git commit → CI pipeline →
 Docker images → Trivy scan → GHCR → Terraform → Kubernetes → Helm → Ingress → HPA → Prometheus/Grafana →
@@ -508,5 +512,6 @@ failure simulation (troubleshooting lab).
 ├── monitoring/                  kube-prometheus-stack values, Grafana dashboard, alert rules
 ├── troubleshooting/             broken manifests + walkthrough
 ├── scripts/                     kind-up.sh, kind-down.sh, kind-config.yaml, load-test.sh, seed.sh
-└── docs/                        screenshots/, StockPilot-walkthrough.mp4, StockPilot-walkthrough-preview.gif
+├── demo/                        presentation video (MP4), slide deck (PPTX), animated preview (GIF)
+└── docs/screenshots/            evidence screenshots referenced above
 ```
